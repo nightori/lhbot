@@ -1,0 +1,10 @@
+### NODE STUFF ###
+node_modules/
+package-lock.json
+
+### PRIVATE STUFF ###
+config.json
+
+### TEMP STUFF ###
+test.js
+testButton.js
