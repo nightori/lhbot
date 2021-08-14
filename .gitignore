@@ -4,6 +4,7 @@ package-lock.json
 
 ### PRIVATE STUFF ###
 config.json
+sync_config.cmd
 
 ### TEMP STUFF ###
 test.js
