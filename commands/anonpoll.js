@@ -14,7 +14,7 @@ module.exports = {
 	hidden: false,
 	execute(msg) {
 		// construct the embed and the button row
-		const question = msg.args.join(' ') || '...';
+		const question = msg.argsline || '...';
 		const embed = getEmbed(question, '', '0 голосов', '0 голосов');
 		const buttons = getButtonRow();
 

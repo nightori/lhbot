@@ -13,7 +13,7 @@ module.exports = {
 	hidden: true,
 	execute(msg) {
 		// get and validate the number
-		const n = msg.args.join(' ');
+		const n = msg.argsline;
 		if (!/^[\d ]+$/.test(n)) {
 			msg.respond(`Указано некорректное число.`);
 			return;

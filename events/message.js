@@ -15,8 +15,9 @@ module.exports = {
 		// set the args array and get the command name
 		message.args = message.content.slice(cfg.prefix.length).trim().split(/ +/);
 		const commandName = message.args.shift().toLowerCase();
-
-		// get the command object and stop if it's not found
+		
+		// set the args line and get the command object, stop if it's not found
+		message.argsline = message.args.join(' ');
 		const command = message.client.commands.get(commandName);
 		if (!command) return;
 		

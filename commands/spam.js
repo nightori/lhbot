@@ -15,7 +15,7 @@ module.exports = {
 			message = msg;
 			clearInterval(intID);
 			intID = setInterval(() => {
-				message.channel.send(message.args.join(' '))
+				message.channel.send(message.argsline)
 			}, 2500);
 		}
 	}

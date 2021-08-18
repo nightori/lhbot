@@ -13,7 +13,7 @@ module.exports = {
 		word = word.charAt(0).toUpperCase() + word.slice(1);
 
 		// prepare and send the message
-		const desc = msg.args.join(' ');
+		const desc = msg.argsline;
 		const text = desc ? `**${word} ${desc}!**` : `**${word}!**`;
 		msg.channel.send(text);
 	}

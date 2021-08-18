@@ -15,7 +15,7 @@ module.exports = {
 		// set global references
 		vndb = msg.client.modules.get('vndb');
 		message = msg;
-		title = msg.args.join(' ');
+		title = msg.argsline;
 
 		vndb.vnSearch(title, vnCallback, message.errorHandler);
 	}

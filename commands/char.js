@@ -16,7 +16,7 @@ module.exports = {
 		vndb = msg.client.modules.get('vndb');
 		message = msg;
 
-		vndb.getCharInfo(msg.args.join(' '), charCallback, message.errorHandler);
+		vndb.getCharInfo(msg.argsline, charCallback, message.errorHandler);
 	}
 };
 

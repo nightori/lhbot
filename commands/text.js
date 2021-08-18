@@ -14,7 +14,7 @@ module.exports = {
 	hidden: false,
 	execute(msg) {
 		// join all args to get the full input string
-		const text = msg.args.join(' ');
+		const text = msg.argsline;
 
 		// check whether the input text is empty
 		if (!text) {
