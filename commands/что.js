@@ -6,7 +6,7 @@ module.exports = {
 	serverOnly: false,
 	hidden: false,
 	execute(msg) {
-		dict = msg.client.modules.get('dictionary');
+		const dict = msg.client.modules.get('dictionary');
 		
 		// get a random word and capitalize the first letter
 		let word = dict.getRandomWord();
