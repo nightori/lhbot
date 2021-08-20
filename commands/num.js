@@ -6,11 +6,11 @@ const WIDTH = 68, HEIGHT = 150, MAXLEN = 100;
 
 module.exports = {
 	names: ['num', 'number'],
-	description: 'Представить число картинкой с пиксельными девочками',
+	description: 'Сделать аниме-картинку с числом',
 	args: ['[number]'],
 	restricted: false,
 	serverOnly: false,
-	hidden: true,
+	hidden: false,
 	execute(msg) {
 		// get and validate the number
 		const n = msg.argsline;

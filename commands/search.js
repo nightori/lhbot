@@ -6,7 +6,7 @@ let message, utils;
 
 module.exports = {
 	names: ['search'],
-	description: 'Найти картинку в различных поисковых системах',
+	description: 'Найти картинку в поисковых системах',
 	args: null,
 	restricted: false,
 	serverOnly: false,

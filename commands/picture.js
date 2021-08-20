@@ -5,7 +5,7 @@ let message;
 
 module.exports = {
 	names: ['picture', 'pic'],
-	description: 'Показать картинку по запросу',
+	description: 'Найти и показать картинку по запросу',
 	args: null,
 	restricted: false,
 	serverOnly: false,

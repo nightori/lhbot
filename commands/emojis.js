@@ -9,7 +9,7 @@ module.exports = {
 	args: null,
 	restricted: false,
 	serverOnly: true,
-	hidden: false,
+	hidden: true,
 	execute(msg) {
 		msg.channel.send('Начата загрузка и упаковка, подождите...');
 

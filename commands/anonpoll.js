@@ -7,7 +7,7 @@ let utils;
 
 module.exports = {
 	names: ['anonpoll', 'ap'],
-	description: 'Создать анонимный опрос (с ответами да/нет)',
+	description: 'Создать анонимный опрос',
 	args: null,
 	restricted: false,
 	serverOnly: true,

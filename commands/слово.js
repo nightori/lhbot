@@ -3,11 +3,11 @@ const cfg = require('./../config.json');
 
 module.exports = {
 	names: ['слово', 'словарь'],
-	description: 'Найти в словаре определение заданного слова',
+	description: 'Найти в словаре заданное слово',
 	args: null,
 	restricted: false,
 	serverOnly: false,
-	hidden: true,
+	hidden: false,
 	execute(msg) {
 		dict = msg.client.modules.get('dictionary');
 

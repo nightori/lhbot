@@ -2,8 +2,8 @@ var dayjs = require('dayjs');
 
 module.exports = {
 	names: ['crt'],
-	description: 'Определить дату создания дискорд-объекта',
-	args: ['[object]'],
+	description: 'Определить дату создания объекта',
+	args: ['[discord entity]'],
 	restricted: false,
 	serverOnly: false,
 	hidden: false,

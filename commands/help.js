@@ -20,7 +20,7 @@ module.exports = {
 			if (!c.hidden && !descriptions.includes(c.description)) {
 				let title = cfg.prefix + c.names[0];
 				if (c.args) title += ' ' + c.args.join(' ');
-				embed.addField(title, c.description);
+				embed.addField(title, c.description, true);
 				descriptions.push(c.description);
 			}
 		});
