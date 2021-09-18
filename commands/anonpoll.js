@@ -34,7 +34,7 @@ module.exports = {
 		// set up the embed fields
 		const embed = button.message.embeds[0];
 		const question = embed.title;
-		const yae = formatVotes(embed.fields[0].value, isYea ? 1 : 0);
+		const yea = formatVotes(embed.fields[0].value, isYea ? 1 : 0);
 		const nay = formatVotes(embed.fields[1].value, isYea ? 0 : 1);
 
 		// extract voters and check if the user has already voted
@@ -49,7 +49,7 @@ module.exports = {
 		const newVoters = voters.join('|');
 
 		// construct the new embed
-		const newEmbed = getEmbed(question, newVoters, yae, nay);
+		const newEmbed = getEmbed(question, newVoters, yea, nay);
 
 		// edit the message, unlock the buttons when done
 		button.message.edit(newEmbed)
