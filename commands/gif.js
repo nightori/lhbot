@@ -1,25 +1,24 @@
-const Discord = require('discord.js');
-const request = require('request');
+import { MessageAttachment } from 'discord.js';
+import request from 'request';
 
-// shared objects
+export const names = ['gif'];
+export const description = 'Сконвертировать картинку в gif';
+export const args = null;
+export const restricted = false;
+export const serverOnly = false;
+export const hidden = false;
+
+// global references
 let message, utils;
 
-module.exports = {
-	names: ['gif'],
-	description: 'Сконвертировать картинку в gif',
-	args: null,
-	restricted: false,
-	serverOnly: false,
-	hidden: false,
-	execute(msg) {
-		// save the message object
-		message = msg;
+export function execute(msg) {
+	// save the message object
+	message = msg;
 
-		// get the referenced message and call the callback
-		utils = msg.client.modules.get('utils');
-		utils.getRefMessageAndCall(msg, refCallback);
-	}
-};
+	// get the referenced message and call the callback
+	utils = msg.client.modules.get('utils');
+	utils.getRefMessageAndCall(msg, refCallback);
+}
 
 function refCallback(refMessage) {
 	// get the direct picture URL from the message/refMessage
@@ -30,11 +29,12 @@ function refCallback(refMessage) {
 		// download and resend with "gif" extension
 		// dunno why this works but I'm not complaining
 		request({url, encoding: null}, (err, resp, buffer) => {
-			message.channel.send(new Discord.MessageAttachment(buffer, `converted.gif`));
+			const file = new MessageAttachment(buffer, `converted.gif`);
+			message.channel.send({ files: [file] });
 		});
 	}
 	// if it wasn't
 	else {
-		message.respond('Нужно загрузить картинку, указать сообщение с ней или ссылку на неё.');
+		message.reply('Нужно загрузить картинку, указать сообщение с ней или ссылку на неё.');
 	}
 }

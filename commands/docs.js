@@ -1,20 +1,20 @@
-const Discord = require('discord.js');
-const cfg = require('./../config.json');
+import { MessageEmbed } from 'discord.js';
+import cfg from './../config.js';
 
-module.exports = {
-	names: ['docs'],
-	description: 'Вывести ссылки на документацию',
-	args: null,
-	restricted: false,
-	serverOnly: false,
-	hidden: true,
-	execute(msg) {
-		msg.channel.send(
-			new Discord.MessageEmbed()
+export const names = ['docs'];
+export const description = 'Вывести ссылки на документацию';
+export const args = null;
+export const restricted = false;
+export const serverOnly = false;
+export const hidden = true;
+
+export function execute(msg) {
+	msg.channel.send({
+		embeds: [
+			new MessageEmbed()
 				.setColor(cfg.embedColor)
 				.addField('Руководство', 'https://discordjs.guide/')
 				.addField('Документация', 'https://discord.js.org/#/docs')
-				.addField('Про кнопки', 'https://discord-buttons.js.org/docs/stable/')
-		);
-	}
-};
+		]
+	});
+}

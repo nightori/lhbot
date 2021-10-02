@@ -1,6 +1,5 @@
-module.exports = {
-	name: 'anonpollNay',
-	handler(button) {
-		button.client.commands.get('anonpoll').vote(button, false);
-	}
-};
+export const name = 'anonpollNay';
+
+export function handler(interaction) {
+	interaction.client.commands.get('anonpoll').vote(interaction, false);
+}

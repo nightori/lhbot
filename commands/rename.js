@@ -1,18 +1,20 @@
-module.exports = {
-	names: ['rename'],
-	description: 'Изменить ник пользователя',
-	args: ['[member]', '[new nickname]'],
-	restricted: true,
-	serverOnly: true,
-	hidden: true,
-	execute(msg) {
-		// convert mention to an ID
-		const uid = msg.args[0].replace(/[<@!>]/g, '');
+export const names = ['rename'];
+export const description = 'Изменить ник пользователя';
+export const args = ['[member]', '[new nickname]'];
+export const restricted = true;
+export const serverOnly = true;
+export const hidden = true;
 
-		// get member by ID and set the nickname
-		const member = msg.guild.members.cache.get(uid);
-		member.setNickname(msg.args.slice(1).join(' '))
-			.then(msg.successHandler)
-			.catch(msg.errorHandler);
-	}
-};
+export function execute(msg) {
+	// convert mention to an ID
+	const uid = msg.args[0].replace(/[<@!>]/g, '');
+
+	// get member by ID and set the nickname
+	msg.guild.members.fetch(uid)
+		.then(member => {
+			member.setNickname(msg.args.slice(1).join(' '))
+				.then(msg.successHandler)
+				.catch(msg.errorHandler);
+		})
+		.catch(msg.errorHandler);
+}

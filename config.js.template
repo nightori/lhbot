@@ -1,0 +1,49 @@
+This is an empty config file template.
+
+export default
+{
+	"prefix": "!",
+	"creator": "",
+	"embedColor": "#",
+	"channels": {
+		"general": "",
+		"vn": "",
+		"bot": "",
+		"log": "",
+		"media": "",
+		"info": ""
+	},
+	"roles": {
+		"mod": "",
+		"mute": ""
+	},
+	"status": {
+		"games": [""],
+		"interval": 
+	},
+	"wfWords" : [""],
+	"wfReactions": [""],
+	"autoban": [""],
+	"vnr": {
+		"enabled": ,
+		"debug": ,
+		"id": ,
+		"idSandbox": ,
+		"name": "",
+		"icon": "",
+		"lengthLimit": ,
+		"ignored": [""]
+	},
+	"anek": {
+		"ownerId": "",
+		"maxTries": ,
+		"lengthLimit": ,
+		"offsetLimit": 
+	},
+	"tokens": {
+		"discord": "",
+		"vk": "",
+		"vkVNR": "",
+		"vkSandbox": ""
+	}
+}

@@ -3,7 +3,7 @@ node_modules/
 package-lock.json
 
 ### PRIVATE STUFF ###
-config.json
+config.js
 sync_config.cmd
 
 ### TEMP STUFF ###

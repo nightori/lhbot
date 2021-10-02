@@ -1,67 +1,64 @@
-const Discord = require('discord.js');
-const disbut = require("discord-buttons");
-const cfg = require('./../config.json');
+import { MessageEmbed, MessageActionRow, MessageButton } from 'discord.js';
+import cfg from './../config.js';
 
-// shared objects
+export const names = ['anonpoll', 'ap'];
+export const description = 'Создать анонимный опрос';
+export const args = null;
+export const restricted = false;
+export const serverOnly = true;
+export const hidden = false;
+
+// global references
 let utils;
 
-module.exports = {
-	names: ['anonpoll', 'ap'],
-	description: 'Создать анонимный опрос',
-	args: null,
-	restricted: false,
-	serverOnly: true,
-	hidden: false,
-	execute(msg) {
-		// construct the embed and the button row
-		const question = msg.argsline || '...';
-		const embed = getEmbed(question, '', '0 голосов', '0 голосов');
-		const buttons = getButtonRow();
+export function execute(msg) {
+	// construct the embed and the button row
+	const question = msg.argsline || '...';
+	const embed = getEmbed(question, '', '0 голосов', '0 голосов');
+	const row = getButtonRow();
 
-		// send the message and delete the invocation
-		msg.channel.send(embed, buttons);
-		msg.delete().catch(console.error);
-	},
+	// send the message and delete the invocation
+	msg.channel.send({ embeds: [embed], components: [row] });
+	msg.delete().catch(console.error);
+}
 
-	vote(button, isYea) {
-		// get the utils module
-		utils = button.client.modules.get('utils');
+export function vote(interaction, isYea) {
+	// get the utils module
+	utils = interaction.client.modules.get('utils');
 
-		// get the unicoder module and encode the ID
-		const unicoder = button.client.modules.get('unicoder');
-		const encoded = unicoder.encode(button.clicker.id, button.message.id);
+	// get the unicoder module and encode the ID
+	const unicoder = interaction.client.modules.get('unicoder');
+	const encoded = unicoder.encodeData(interaction.user.id, interaction.message.id);
 
-		// set up the embed fields
-		const embed = button.message.embeds[0];
-		const question = embed.title;
-		const yea = formatVotes(embed.fields[0].value, isYea ? 1 : 0);
-		const nay = formatVotes(embed.fields[1].value, isYea ? 0 : 1);
+	// set up the embed fields
+	const embed = interaction.message.embeds[0];
+	const question = embed.title;
+	const yea = formatVotes(embed.fields[0].value, isYea ? 1 : 0);
+	const nay = formatVotes(embed.fields[1].value, isYea ? 0 : 1);
 
-		// extract voters and check if the user has already voted
-		const voters = embed.description.replace(/[\[\]\(\)]/g,'').split('|');
-		if (voters.includes(encoded)) {
-			button.reply.send('Вы уже голосовали в этом опросе!', true);
-			return;
-		}
-
-		// they haven't, add them to the voters list
-		voters.push(encoded);
-		const newVoters = voters.join('|');
-
-		// construct the new embed
-		const newEmbed = getEmbed(question, newVoters, yea, nay);
-
-		// edit the message, unlock the buttons when done
-		button.message.edit(newEmbed)
-			.then(() => button.reply.defer());
+	// extract voters and check if the user has already voted
+	const voters = embed.description.replace(/[\[\]\(\)]/g, '').split('|');
+	if (voters.includes(encoded)) {
+		interaction.reply({ content: 'Вы уже голосовали в этом опросе!', ephemeral: true });
+		return;
 	}
-};
+
+	// they haven't, add them to the voters list
+	voters.push(encoded);
+	const newVoters = voters.join('|');
+
+	// construct the new embed
+	const newEmbed = getEmbed(question, newVoters, yea, nay);
+
+	// edit the message
+	interaction.update({ embeds: [newEmbed] });
+}
 
 function getEmbed(question, voters, yea, nay) {
 	// convert the first character to upper case
 	const title = question.charAt(0).toUpperCase() + question.slice(1);
 
-	return new Discord.MessageEmbed()
+	return new MessageEmbed()
 		.setColor(cfg.embedColor)
 		.setTitle(title)
 		.setDescription(`[](${voters})`)
@@ -70,18 +67,17 @@ function getEmbed(question, voters, yea, nay) {
 }
 
 function getButtonRow() {
-	const buttonYea = new disbut.MessageButton()
-		.setStyle('green')
-		.setLabel('ДА') 
-		.setID('anonpollYea');
-
-	const buttonNay = new disbut.MessageButton()
-		.setStyle('red')
-		.setLabel('НЕТ') 
-		.setID('anonpollNay');
-
-	return new disbut.MessageActionRow()
-		.addComponents(buttonYea, buttonNay);
+	return new MessageActionRow()
+		.addComponents(
+			new MessageButton()
+				.setCustomId('anonpollYea')
+				.setLabel('ДА')
+				.setStyle('SUCCESS'),
+			new MessageButton()
+				.setCustomId('anonpollNay')
+				.setLabel('НЕТ')
+				.setStyle('DANGER'),
+		);
 }
 
 function formatVotes(value, increment) {

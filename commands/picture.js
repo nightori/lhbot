@@ -1,27 +1,26 @@
-const gis = require('g-i-s');
+import gis from 'g-i-s';
 
-// shared objects
+export const names = ['picture', 'pic'];
+export const description = 'Найти и показать картинку по запросу';
+export const args = null;
+export const restricted = false;
+export const serverOnly = false;
+export const hidden = false;
+
+// global references
 let message;
 
-module.exports = {
-	names: ['picture', 'pic'],
-	description: 'Найти и показать картинку по запросу',
-	args: null,
-	restricted: false,
-	serverOnly: false,
-	hidden: false,
-	execute(msg) {
-		// save the message object
-		message = msg;
+export function execute(msg) {
+	// save the message object
+	message = msg;
 
-		// if the args are empty, set our query to be a random word
-		const dict = msg.client.modules.get('dictionary');
-		const query = msg.argsline || dict.getRandomWord();
+	// if the args are empty, set our query to be a random word
+	const dict = msg.client.modules.get('dictionary');
+	const query = msg.argsline || dict.getRandomWord();
 
-		// perform a search
-		gis(query, callback);
-	}
-};
+	// perform a search
+	gis(query, callback);
+}
 
 function callback(error, results) {
 	// if we were unable to get a response

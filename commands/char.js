@@ -1,24 +1,23 @@
-const Discord = require('discord.js');
-const dayjs = require('dayjs');
+import { MessageEmbed } from 'discord.js';
+import dayjs from 'dayjs';
 
-// shared objects
+export const names = ['char', 'character'];
+export const description = 'Получить информацию о персонаже ВН по имени';
+export const args = ['[name]'];
+export const restricted = false;
+export const serverOnly = false;
+export const hidden = false;
+
+// global references
 let vndb, message, foundChar;
 
-module.exports = {
-	names: ['char', 'character'],
-	description: 'Получить информацию о персонаже ВН по имени',
-	args: ['[name]'],
-	restricted: false,
-	serverOnly: false,
-	hidden: false,
-	execute(msg) {
-		// set global references
-		vndb = msg.client.modules.get('vndb');
-		message = msg;
+export function execute(msg) {
+	// set global references
+	vndb = msg.client.modules.get('vndb');
+	message = msg;
 
-		vndb.getCharInfo(msg.argsline, charCallback, message.errorHandler);
-	}
-};
+	vndb.getCharInfo(msg.argsline, charCallback, message.errorHandler);
+}
 
 // callback for getCharInfo()
 function charCallback(response) {
@@ -28,7 +27,7 @@ function charCallback(response) {
 	// if it exists
 	if (foundChar) {
 		// get an array of VNs this character appears in
-		let vns = [];
+		const vns = [];
 		foundChar.vns.forEach(vn => vns.push(vn[0]));
 
 		vndb.getVnInfo(vns, vnsCallback, message.errorHandler);
@@ -52,7 +51,7 @@ function vnsCallback(response) {
 	}
 	else {
 		// get an array of staff IDs this character was voiced by
-		let ids = [];
+		const ids = [];
 		foundChar.voiced.forEach(cv => ids.push(cv.id));
 
 		vndb.getStaffInfo(ids, staffCallback, message.errorHandler);
@@ -75,12 +74,12 @@ function printInfo() {
 
 	const birthday = getBirthdayField();
 
-	let voiced = [], vns = [];
+	const voiced = [], vns = [];
 	foundChar.voiced.forEach(cv => voiced.push(`[${cv.name}](https://vndb.org/s${cv.id})`));
 	foundChar.vns.forEach(vn =>	vns.push(`[${vn.title}](https://vndb.org/v${vn.id})`));
 
 	// required fields
-	const embed = new Discord.MessageEmbed()
+	const embed = new MessageEmbed()
 		.setColor(genderedColor)
 		.setTitle(foundChar.name)
 		.setURL(`https://vndb.org/c${foundChar.id}`)
@@ -93,7 +92,7 @@ function printInfo() {
 	if (vns.length > 0) embed.addField('Appears in', vns.join(', '), false);
 
 	// send the vn info
-	message.channel.send(embed);
+	message.channel.send({ embeds: [embed] });
 }
 
 function getBirthdayField() {

@@ -1,51 +1,52 @@
-const Discord = require('discord.js');
-const request = require('request');
-const ZipStream = require('zip-stream');
-const streamBuffers = require('stream-buffers');
+import { MessageAttachment } from 'discord.js';
+import request from 'request';
+import ZipStream from 'zip-stream';
+import { WritableStreamBuffer } from 'stream-buffers';
 
-module.exports = {
-	names: ['emojis'],
-	description: 'Получить все эмодзи сервера',
-	args: null,
-	restricted: false,
-	serverOnly: true,
-	hidden: true,
-	execute(msg) {
-		msg.channel.send('Начата загрузка и упаковка, подождите...');
+export const names = ['emojis'];
+export const description = 'Получить все эмодзи сервера';
+export const args = null;
+export const restricted = false;
+export const serverOnly = true;
+export const hidden = true;
 
-		// map all emojis to a collection
-		const emojis = msg.guild.emojis.cache.map(e => {
-			const ext = e.animated ? "gif" : "png";
-			return {'name': `${e.name}.${ext}`, 'url': e.url};
+export function execute(msg) {
+	msg.channel.send('Начата загрузка и упаковка, подождите...');
+
+	// map all emojis to a collection
+	const emojis = msg.guild.emojis.cache.map(e => {
+		const ext = e.animated ? "gif" : "png";
+		return { 'name': `${e.name}.${ext}`, 'url': e.url };
+	});
+
+	// initialize the archive and its output buffer
+	const zip = new ZipStream();
+	const streamBuffer = new WritableStreamBuffer({
+		initialSize: (100 * 1024),
+		incrementAmount: (50 * 1024)
+	});
+	zip.pipe(streamBuffer);
+
+	function addNextFile() {
+		// get the emoji and fetch it
+		const emoji = emojis.shift();
+		const stream = request(emoji.url);
+
+		// add it to the archive
+		zip.entry(stream, { name: emoji.name }, err => {
+			if (err) msg.errorHandler(err);
+
+			// check if there's no emojis left
+			if (emojis.length == 0) {
+				// we're done, send the buffer
+				zip.finalize();
+				const file = new MessageAttachment(streamBuffer.getContents(), 'emojis.zip');
+				msg.channel.send({ content: 'Готово!', files: [file] });
+			}
+			else addNextFile();
 		});
-
-		// initialize the archive and its output buffer
-		const zip = new ZipStream();
-		const streamBuffer = new streamBuffers.WritableStreamBuffer({
-			initialSize: (100 * 1024),
-			incrementAmount: (50 * 1024)
-		});
-		zip.pipe(streamBuffer);
-
-		function addNextFile() {
-			// get the emoji and fetch it
-			const emoji = emojis.shift();
-			const stream = request(emoji.url);
-
-			// add it to the archive
-			zip.entry(stream, {name: emoji.name}, err => {
-				if (err) msg.errorHandler(err);
-				if (emojis.length > 0) addNextFile();
-				else {
-					// we're done, send the buffer
-					zip.finalize();
-					const file = new Discord.MessageAttachment(streamBuffer.getContents(), 'emojis.zip');
-					msg.channel.send('Готово!', file);
-				}
-			});
-		}
-
-		// start the process
-		addNextFile();
 	}
-};
+
+	// start the process
+	addNextFile();
+}

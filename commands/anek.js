@@ -1,41 +1,41 @@
-const disbut = require("discord-buttons");
-const cfg = require('./../config.json');
+import { MessageActionRow, MessageButton } from 'discord.js';
+import cfg from './../config.js';
 
-// shared objects
-let message, button;
+export const names = ['anek', 'анек'];
+export const description = 'Запостить случайный анек из МЛЮ';
+export const args = null;
+export const restricted = false;
+export const serverOnly = false;
+export const hidden = false;
 
-module.exports = {
-	names: ['anek', 'анек'],
-	description: 'Запостить случайный анек из МЛЮ',
-	args: null,
-	restricted: false,
-	serverOnly: false,
-	hidden: false,
-	execute(msg) {
-		// set up shared objects
-		message = msg;
-		button = null;
+// global references
+let message, interaction;
+let tries = 0;
 
-		// try to get an anek
-		sendRequest();
-	},
-	executeFromButton(clickedButton) {
-		// set up shared objects
-		message = clickedButton.message;
-		button = clickedButton;
+export function execute(msg) {
+	// set up global references
+	message = msg;
+	interaction = null;
 
-		// try to get an anek
-		sendRequest();
-	}
-};
+	// try to get an anek
+	sendRequest();
+}
+
+export function executeFromButton(int) {
+	// set up global references
+	message = int.message;
+	interaction = int;
+
+	// try to get an anek
+	sendRequest();
+}
 
 function sendRequest() {
 	// get the VK module and make a request for a random post
 	const vk = message.client.modules.get('vk');
-	vk.getRandomPost(cfg.anek.ownerID, cfg.anek.offsetLimit, callback);
+	vk.getRandomPost(cfg.anek.ownerId, cfg.anek.offsetLimit, callback);
 }
 
-let tries = 0;
 function callback(result) {
 	// if it's a proper post with text (not too long) and nothing else
 	if (result['text'] && !result['attachments'] && result['text'].length < cfg.anek.lengthLimit) {
@@ -57,16 +57,18 @@ function callback(result) {
 
 // either send a new message or edit an old one
 function displayAnek(anek) {
-	if (button) {
-		button.reply.defer();
-		message.edit(anek);
+	if (interaction) {
+		interaction.update(anek);
 	}
 	else {
-		let button = new disbut.MessageButton()
-			.setLabel("Загрузить другой")
-			.setID("anekRefresh")
-			.setStyle("grey")
+		const row = new MessageActionRow()
+			.addComponents(
+				new MessageButton()
+					.setCustomId('anekRefresh')
+					.setLabel('Загрузить другой')
+					.setStyle('SECONDARY')
+			);
 
-		message.channel.send(anek, button);
+		message.channel.send({ content: anek, components: [row] });
 	}
 }

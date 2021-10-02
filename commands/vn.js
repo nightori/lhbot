@@ -1,25 +1,24 @@
-const Discord = require('discord.js');
-const cfg = require('./../config.json');
+import { MessageEmbed } from 'discord.js';
+import cfg from './../config.js';
 
-// shared objects
+export const names = ['vn'];
+export const description = 'Получить информацию о ВН по названию';
+export const args = ['[title]'];
+export const restricted = false;
+export const serverOnly = false;
+export const hidden = false;
+
+// global references
 let vndb, message, title, foundVN;
 
-module.exports = {
-	names: ['vn'],
-	description: 'Получить информацию о ВН по названию',
-	args: ['[title]'],
-	restricted: false,
-	serverOnly: false,
-	hidden: false,
-	execute(msg) {
-		// set global references
-		vndb = msg.client.modules.get('vndb');
-		message = msg;
-		title = msg.argsline;
+export function execute(msg) {
+	// set global references
+	vndb = msg.client.modules.get('vndb');
+	message = msg;
+	title = msg.argsline;
 
-		vndb.vnSearch(title, vnCallback, message.errorHandler);
-	}
-};
+	vndb.vnSearch(title, vnCallback, message.errorHandler);
+}
 
 // callback for vnSearch()
 function vnCallback(response) {
@@ -92,14 +91,14 @@ function printInfo() {
 	let length = ['<2', '2-10', '10-30', '30-50', '50+'][foundVN.length-1];
 	if (length) length += ' hours';
 
-	let writers = [], composers = [];
+	const writers = [], composers = [];
 	foundVN.staff.forEach(s => {
 		if (s.role == 'scenario') writers.push(`[${s.name}](https://vndb.org/s${s.sid})`);
 		if (s.role == 'music')  composers.push(`[${s.name}](https://vndb.org/s${s.sid})`);
 	});
 
 	// required fields
-	const embed = new Discord.MessageEmbed()
+	const embed = new MessageEmbed()
 		.setColor(cfg.embedColor)
 		.setTitle(foundVN.title)
 		.setURL(`https://vndb.org/v${foundVN.id}`)
@@ -114,5 +113,5 @@ function printInfo() {
 	if (foundVN.released) embed.setFooter(`Released in ${foundVN.released.substr(0, 4)}`);
 
 	// send the vn info
-	message.channel.send(embed);
+	message.channel.send({ embeds: [embed] });
 }

@@ -1,20 +1,32 @@
-const fs = require('fs');
-const Discord = require('discord.js');
-const cfg = require('./config.json');
-const {performance} = require('perf_hooks');
-const onDeath = require('death');
+import { readdirSync } from 'fs';
+import { Client, Intents, Collection } from 'discord.js';
+import { performance } from 'perf_hooks';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import onDeath from 'death';
+import cfg from './config.js';
 
 const timeStart = performance.now();
 
-// initialize the client and its parameters
-const client = new Discord.Client();
-require("discord-buttons")(client);
+// initialize the client with intents
+const client = new Client({
+	intents: [
+		Intents.FLAGS.GUILDS,
+		Intents.FLAGS.GUILD_MEMBERS,
+		Intents.FLAGS.GUILD_MESSAGES,
+		Intents.FLAGS.GUILD_INTEGRATIONS,
+		Intents.FLAGS.DIRECT_MESSAGES
+	],
+	partials: ['CHANNEL']
+});
 
-client.modules = new Discord.Collection();
-client.commands = new Discord.Collection();
-client.buttons = new Discord.Collection();
+// initialize client parameters
+client.modules = new Collection();
+client.commands = new Collection();
+client.buttons = new Collection();
 client.nicknameMap = new Map();
 client.welcomerEnabled = true;
+client.appDir = dirname(fileURLToPath(import.meta.url));
 client.emojiMap = {
 	'a': '🇦', 'b': '🇧', 'c': '🇨', 'd': '🇩', 'e': '🇪', 'f': '🇫', 'g': '🇬', 'h': '🇭', 'i': '🇮',
 	'j': '🇯', 'k': '🇰', 'l': '🇱', 'm': '🇲', 'n': '🇳', 'o': '🇴', 'p': '🇵', 'q': '🇶', 'r': '🇷',
@@ -24,18 +36,18 @@ client.emojiMap = {
 };
 
 // load all modules into the collection and initialize them
-const moduleFiles = fs.readdirSync('./modules').filter(f => f.endsWith('.js'));
+const moduleFiles = readdirSync('./modules').filter(f => f.endsWith('.js'));
 for (const file of moduleFiles) {
-	const module = require(`./modules/${file}`);
+	const module = await import(`./modules/${file}`);
 	if (module.init) module.init(client);
 	client.modules.set(module.name, module);
 	console.log(`Initialized module '${module.name}'...`);
 }
 
 // load all commands into the collection
-const commandFiles = fs.readdirSync('./commands').filter(f => f.endsWith('.js'));
+const commandFiles = readdirSync('./commands').filter(f => f.endsWith('.js'));
 for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
+	const command = await import(`./commands/${file}`);
 
 	// for every command alias
 	command.names.forEach((name) => {
@@ -48,10 +60,17 @@ for (const file of commandFiles) {
 	});
 }
 
+// load all event handlers and set them
+const eventFiles = readdirSync('./events').filter(f => f.endsWith('.js'));
+for (const file of eventFiles) {
+	const event = await import(`./events/${file}`);
+	client.on(event.name, event.handler);
+}
+
 // load all buttons into the collection
-const buttonFiles = fs.readdirSync('./buttons').filter(f => f.endsWith('.js'));
+const buttonFiles = readdirSync('./buttons').filter(f => f.endsWith('.js'));
 for (const file of buttonFiles) {
-	const button = require(`./buttons/${file}`);
+	const button = await import(`./buttons/${file}`);
 	client.buttons.set(button.name, button);
 }
 
@@ -61,13 +80,6 @@ client.once('ready', () => {
 	console.log(`Bot initialized in ${timeTotal} ms!`);
 	setRandomStatusLoop();
 });
-
-// load all event handlers and set them
-const eventFiles = fs.readdirSync('./events').filter(f => f.endsWith('.js'));
-for (const file of eventFiles) {
-	const event = require(`./events/${file}`);
-	client.on(event.name, event.handler);
-}
 
 // the "shutdown everything" function
 client.shutdown = function() {
@@ -91,8 +103,7 @@ client.login(cfg.tokens.discord);
 
 // endlessly randomize activity
 function setRandomStatusLoop() {
-	var game = cfg.status.games[Math.floor(Math.random() * cfg.status.games.length)];
-	client.user.setActivity(game)
-		.then(() => setTimeout(setRandomStatusLoop, cfg.status.interval))
-		.catch(console.error);
+	const game = cfg.status.games[Math.floor(Math.random() * cfg.status.games.length)];
+	client.user.setActivity(game);
+	setTimeout(setRandomStatusLoop, cfg.status.interval);
 }

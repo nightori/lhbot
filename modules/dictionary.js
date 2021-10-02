@@ -1,18 +1,14 @@
-const dict = require('./../static/dictionary.json');
-const words = require('./../static/words.json');
+import dict from './../static/dictionary.js';
+import words from './../static/words.js';
 
-module.exports = {
-	name: 'dictionary',
+export const name = 'dictionary';
 
-	// PUBLIC API
+export function getRandomWord() {
+	const wordlist = words['words'];
+	return wordlist[Math.floor(Math.random() * wordlist.length)];
+}
 
-	getRandomWord() {
-		const wordlist = words['words'];
-		return wordlist[Math.floor(Math.random()*wordlist.length)];
-	},
-
-	getDefinition(word) {
-		const def = dict[word];
-		return def ? def.definition : null;
-	}
-};
+export function getDefinition(word) {
+	const def = dict[word];
+	return def ? def.definition : null;
+}

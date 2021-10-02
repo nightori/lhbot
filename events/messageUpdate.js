@@ -1,12 +1,11 @@
-const onMessage = require('./message.js');
+import { handler as messageCreate} from './messageCreate.js';
 
-module.exports = {
-	name: 'messageUpdate',
-	handler(oldMessage, newMessage) {
-		// if the content changed
-		if (oldMessage.content != newMessage.content) {
-			// do the same things as on new message
-			onMessage.handler(newMessage);
-		}
+export const name = 'messageUpdate';
+
+export function handler(oldMessage, newMessage) {
+	// if the content changed
+	if (oldMessage.content != newMessage.content) {
+		// do the same things as on new message
+		messageCreate(newMessage);
 	}
-};
+}

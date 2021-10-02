@@ -1,42 +1,43 @@
-const dayjs = require('dayjs');
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
-dayjs.extend(require('dayjs/plugin/customParseFormat'));
+export const names = ['dd', 'diff'];
+export const description = 'Посчитать разницу между двумя датами';
+export const args = ['[date 1]', '[date 2]'];
+export const restricted = false;
+export const serverOnly = false;
+export const hidden = false;
 
-module.exports = {
-	names: ['dd', 'diff'],
-	description: 'Посчитать разницу между двумя датами',
-	args: ['[date 1]', '[date 2]'],
-	restricted: false,
-	serverOnly: false,
-	hidden: false,
-	execute(msg) {
-		// get the utils module
-		const utils = msg.client.modules.get('utils');
+dayjs.extend(customParseFormat);
 
-		// convert both dates to Date objects
-		const date1 = toDate(msg.args[0]);
-		const date2 = toDate(msg.args[1]);
+export function execute(msg) {
+	// get the utils module
+	const utils = msg.client.modules.get('utils');
 
-		// if both are valid
-		if (date1.isValid() && date2.isValid()) {
-			// get the difference in ms
-			const diff = Math.abs(date1.diff(date2));
+	// convert both dates to Date objects
+	const date1 = toDate(msg.args[0]);
+	const date2 = toDate(msg.args[1]);
 
-			// get the humanized duration string
-			let dur = utils.getDurationString(diff);
-			
-			// get total days
-			const days = Math.abs(date1.diff(date2, 'd'));
-			if (days > 30) dur += `\nВсего дней: ${days}`;
-			
-			// if it's null, the duration is less than a day
-			msg.channel.send(dur ? `Разница: ${dur}` : 'Между этими датами нет разницы!');
-		}
-		else {
-			msg.respond('Даты не соответствуют формату ДД.ММ.ГГГГ.');
-		}		
+	// if both are valid
+	if (date1.isValid() && date2.isValid()) {
+		// get the difference in ms
+		const diff = Math.abs(date1.diff(date2));
+
+		// get the humanized duration string
+		let dur = utils.getDurationString(diff);
+
+		// get total days
+		const days = Math.abs(date1.diff(date2, 'd'));
+		if (days > 30)
+			dur += `\nВсего дней: ${days}`;
+
+		// if it's null, the duration is less than a day
+		msg.channel.send(dur ? `Разница: ${dur}` : 'Между этими датами нет разницы!');
 	}
-};
+	else {
+		msg.reply('Даты не соответствуют формату ДД.ММ.ГГГГ.');
+	}
+}
 
 function toDate(date) {
 	const nowKeywords = ['now', 'today', 'сейчас', 'сегодня'];
