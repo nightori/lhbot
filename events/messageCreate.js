@@ -96,7 +96,7 @@ function wordfilter(message) {
 
 					// if reaction failed, write a message instead
 					promise.catch(() => {
-						message.reply('гоните его, насмехайтесь над ним!');
+						message.reply('Гоните его, насмехайтесь над ним!');
 					});
 				}
 			}
