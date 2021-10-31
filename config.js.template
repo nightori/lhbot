@@ -32,7 +32,9 @@ export default
 		"name": "",
 		"icon": "",
 		"lengthLimit": ,
-		"ignored": [""]
+		"ignored": [""],
+		"tagApiURL": "",
+		"tagManager": ""
 	},
 	"anek": {
 		"ownerId": "",

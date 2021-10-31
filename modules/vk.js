@@ -53,20 +53,30 @@ export function getRandomPost(owner, offsetLimit, callback) {
 ////// VNR INTERACTION //////
 
 function vnrUpdatesHandler(updates) {
-	// get the utils module
+	// get the modules
 	const utils = client.modules.get('utils');
+	const vnr = client.modules.get('vnr');
 
-	// if there's no post in the update, stop
-	if (!updates[0] || updates[0]['object']['post_type'] != 'post') return;
+	// if there's nothing in the update, stop
+	if (!updates[0]) return;
 
-	const post = updates[0]['object'];	
+	// get post, text, tags and url
+	const post = updates[0]['object'];
+	let text = post['text'].trim();
+	const tags = utils.getHashtags(text);
 	const url = `https://vk.com/wall${post['owner_id']}_${post['id']}`;
+
+	// if it's a suggested post, check the tags and stop
+	if (post['post_type'] == 'suggest' && tags.length > 0) {
+		vnr.checkTags(tags, url);
+		return;
+	}
+
+	// if it's not a regular post, stop
+	if (post['post_type'] != 'post') return;
 
 	// if we already posted that, stop
 	if (posted.indexOf(url) != -1) return;
-
-	let text = post['text'].trim();
-	const tags = utils.getHashtags(text);
 
 	// see if any of the post hashtags are in the "ignored" list
 	if (tags.some(r => cfg.vnr.ignored.indexOf(r) >= 0)) {
