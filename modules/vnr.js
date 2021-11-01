@@ -46,6 +46,6 @@ export function addVn(vn, callback) {
 
 // get the destination channel
 function getChannel() {
-	const channelId = cfg.channels.bot;
+	const channelId = cfg.channels.vnr;
 	return client.channels.cache.get(channelId);
 }
