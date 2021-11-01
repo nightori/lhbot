@@ -11,7 +11,8 @@ export default
 		"bot": "",
 		"log": "",
 		"media": "",
-		"info": ""
+		"info": "",
+		"vnr": ""
 	},
 	"roles": {
 		"mod": "",

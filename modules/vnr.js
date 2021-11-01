@@ -39,6 +39,11 @@ export function checkTags(tags, url) {
 	});
 }
 
+export function addVn(vn, callback) {
+	const apiURL = cfg.vnr.tagApiURL + '/add';
+	request({url: apiURL, method: "POST", body: vn, json: true}, callback);
+}
+
 // get the destination channel
 function getChannel() {
 	const channelId = cfg.channels.bot;
