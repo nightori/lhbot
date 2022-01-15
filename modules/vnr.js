@@ -24,6 +24,8 @@ export function checkTags(tags, url) {
 		if (body) {
 			const newTags = '`' + body.replace(/,/g, '`, `') + '`';
 			const manager = '<@!' + cfg.vnr.tagManager + '>';
+			const testMode = newTags.includes('#testpost');
+			const text = testMode ? 'test' : manager;
 
 			// construct the embed
 			const embed = new MessageEmbed()
@@ -34,7 +36,7 @@ export function checkTags(tags, url) {
 				.setDescription('Новые теги: ' + newTags);
 
 			// send the message
-			getChannel().send({ content: manager, embeds: [embed]})
+			getChannel(testMode).send({ content: text, embeds: [embed] })
 		}
 	});
 }
@@ -45,7 +47,7 @@ export function addVn(vn, callback) {
 }
 
 // get the destination channel
-function getChannel() {
-	const channelId = cfg.channels.vnr;
+function getChannel(testMode) {
+	const channelId = testMode ? cfg.channels.bot : cfg.channels.vnr;
 	return client.channels.cache.get(channelId);
 }

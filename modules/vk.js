@@ -12,6 +12,9 @@ let client, vkApi, vkApiVNR;
 const posted = [];
 
 export function init(discordClient) {
+	// this is temporary, don't judge me!
+	console.log('vk init called!');
+
 	// save a reference to the client
 	client = discordClient;
 
