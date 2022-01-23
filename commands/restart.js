@@ -1,4 +1,4 @@
-export const names = ['restart'];
+export const names = ['restart', 'reboot', 'reload'];
 export const description = 'Перезапустить что-нибудь';
 export const args = null;
 export const restricted = true;
@@ -10,7 +10,7 @@ export function execute(msg) {
 		case 'vk':
 			// get the VK module and call its init function
 			const vk = msg.client.modules.get('vk');
-			vk.init(msg.client);
+			vk.connect();
 			break;
 		case 'bot':
 			// this actually just shuts it down
@@ -18,7 +18,7 @@ export function execute(msg) {
 			msg.client.shutdown();
 			return;
 		default:
-			msg.reply('Что перезагружать-то?');
+			msg.reply('Что перезапускать-то?');
 			return;
 	}
 	msg.successHandler();

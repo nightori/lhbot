@@ -9,15 +9,17 @@ const DEBUG = cfg.vnr.debug;
 
 // global references
 let client, vkApi, vkApiVNR;
-const posted = [];
+const handled = [];
 
 export function init(discordClient) {
-	// this is temporary, don't judge me!
-	console.log('vk init called!');
-
 	// save a reference to the client
 	client = discordClient;
 
+	// set up the connection
+	connect();
+}
+
+export function connect() {
 	// general API for basic operations
 	vkApi = new VKApi({
 		logger: new ConsoleLogger(),
@@ -36,6 +38,9 @@ export function init(discordClient) {
 		const updatesProvider = new BotsLongPollUpdatesProvider(vkApiVNR, groupId);
 		updatesProvider.getUpdates(vnrUpdatesHandler);
 	}
+
+	// schedule the next reconnect
+	setTimeout(connect, cfg.vnr.reconnectInterval);
 }
 
 export function getRandomPost(owner, offsetLimit, callback) {
@@ -69,6 +74,10 @@ function vnrUpdatesHandler(updates) {
 	const tags = utils.getHashtags(text);
 	const url = `https://vk.com/wall${post['owner_id']}_${post['id']}`;
 
+	// if we already handled that, stop
+	if (handled.indexOf(url) != -1) return;
+	handled.push(url);
+
 	// if it's a suggested post, check the tags and stop
 	if (post['post_type'] == 'suggest' && tags.length > 0) {
 		vnr.checkTags(tags, url);
@@ -77,9 +86,6 @@ function vnrUpdatesHandler(updates) {
 
 	// if it's not a regular post, stop
 	if (post['post_type'] != 'post') return;
-
-	// if we already posted that, stop
-	if (posted.indexOf(url) != -1) return;
 
 	// see if any of the post hashtags are in the "ignored" list
 	if (tags.some(r => cfg.vnr.ignored.indexOf(r) >= 0)) {
@@ -111,6 +117,5 @@ function vnrUpdatesHandler(updates) {
 
 	// finally, post and log it
 	channel.send({ embeds: [embed] });
-	posted.push(url);
 	console.log(`VNR: posted ${url}`);
 }
