@@ -26,6 +26,12 @@ function refCallback(refMessage) {
 		
 	// if a URL was found
 	if (url) {
+		// Imgur is not supported
+		if (url.startsWith('https://imgur.com/')) {
+			message.reply('К сожалению, картинки с Imgur не поддерживаются.');
+			return;
+		}
+
 		// download and resend with "gif" extension
 		// dunno why this works but I'm not complaining
 		request({url, encoding: null}, (err, resp, buffer) => {

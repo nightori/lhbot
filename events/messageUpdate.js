@@ -1,4 +1,4 @@
-import { handler as messageCreate} from './messageCreate.js';
+import { handleRepeatable as messageCreate} from './messageCreate.js';
 
 export const name = 'messageUpdate';
 

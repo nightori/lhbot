@@ -2,10 +2,17 @@ import cfg from './../config.js';
 
 export const name = 'messageCreate';
 
+// this can happen only on new messages
 export function handler(message) {
 	// apply wordfilter before any checks
 	wordfilter(message);
 
+	// continue with common actions
+	handleRepeatable(message);
+}
+
+// this can happen when a message is edited too
+export function handleRepeatable(message) {
 	// replace the old prefix
 	message.content = message.content.replace(/^\$/, cfg.prefix);
 
