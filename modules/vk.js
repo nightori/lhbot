@@ -8,7 +8,7 @@ export const name = 'vk';
 const DEBUG = cfg.vnr.debug;
 
 // global references
-let client, vkApi, vkApiVNR;
+let client, vkApi, vkApiVNR, updatesProvider;
 const handled = [];
 
 export function init(discordClient) {
@@ -35,7 +35,14 @@ export function connect() {
 	// start listening to updates
 	if (cfg.vnr.enabled) {
 		const groupId = DEBUG ? cfg.vnr.idSandbox : cfg.vnr.id;
-		const updatesProvider = new BotsLongPollUpdatesProvider(vkApiVNR, groupId);
+
+		// if it already exists, clear the functions first
+		if (updatesProvider) {
+			updatesProvider.getUpdates(null);
+			updatesProvider.poll = () => {};
+		}
+
+		updatesProvider = new BotsLongPollUpdatesProvider(vkApiVNR, groupId);
 		updatesProvider.getUpdates(vnrUpdatesHandler);
 	}
 
