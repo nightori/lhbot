@@ -13,15 +13,21 @@ export function execute(msg) {
 	// construct an embed
 	const embed = new MessageEmbed()
 		.setColor(cfg.embedColor)
-		.setAuthor('Список команд');
+		.setAuthor('Список команд')
+		.setFooter('Отмеченные курсивом команды можно использовать только в бот-каналe.');
 
 	// add all commands and their descriptions as fields
 	const descriptions = [];
 	msg.client.commands.forEach(c => {
 		if (!c.hidden && !descriptions.includes(c.description)) {
 			let title = cfg.prefix + c.names[0];
-			if (c.args)
+			if (c.args) {
 				title += ' ' + c.args.join(' ');
+			}
+			if (c.botChannelOnly) {
+				title = `*${title}*`;
+			}
+
 			embed.addField(title, c.description, true);
 			descriptions.push(c.description);
 		}
