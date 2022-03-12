@@ -6,6 +6,7 @@ export const description = 'Сделать аниме-картинку с чис
 export const args = ['[number]'];
 export const restricted = false;
 export const serverOnly = false;
+export const botChannelOnly = true;
 export const hidden = false;
 
 const WIDTH = 68, HEIGHT = 150, MAXLEN = 100;

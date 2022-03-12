@@ -5,6 +5,7 @@ export const description = 'Добавить новый тег в таблицу
 export const args = null;
 export const restricted = false;
 export const serverOnly = true;
+export const botChannelOnly = false;
 export const hidden = true;
 
 // global references

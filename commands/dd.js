@@ -6,6 +6,7 @@ export const description = 'Посчитать разницу между дву�
 export const args = ['[date 1]', '[date 2]'];
 export const restricted = false;
 export const serverOnly = false;
+export const botChannelOnly = false;
 export const hidden = false;
 
 dayjs.extend(customParseFormat);

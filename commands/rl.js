@@ -5,6 +5,7 @@ export const description = 'Управление ролями пользоват
 export const args = ['[operation]', '[role]', '[member]'];
 export const restricted = true;
 export const serverOnly = true;
+export const botChannelOnly = false;
 export const hidden = true;
 
 export function execute(msg) {

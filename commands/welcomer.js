@@ -3,6 +3,7 @@ export const description = 'Включить или выключить прив�
 export const args = ['[on/off]'];
 export const restricted = true;
 export const serverOnly = true;
+export const botChannelOnly = false;
 export const hidden = true;
 
 export function execute(msg) {

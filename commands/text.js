@@ -7,6 +7,7 @@ export const description = 'Вывести заданный текст в раз
 export const args = null;
 export const restricted = false;
 export const serverOnly = false;
+export const botChannelOnly = true;
 export const hidden = false;
 
 const lowercase = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];

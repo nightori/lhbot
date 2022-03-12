@@ -6,6 +6,7 @@ export const description = 'Получить цитаты из ВН по наз�
 export const args = ['[title]'];
 export const restricted = false;
 export const serverOnly = false;
+export const botChannelOnly = false;
 export const hidden = false;
 
 // global references

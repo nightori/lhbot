@@ -6,6 +6,7 @@ export const description = 'Получить информацию о персо�
 export const args = ['[name]'];
 export const restricted = false;
 export const serverOnly = false;
+export const botChannelOnly = false;
 export const hidden = false;
 
 // global references

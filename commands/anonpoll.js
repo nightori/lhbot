@@ -6,6 +6,7 @@ export const description = 'Создать анонимный опрос';
 export const args = null;
 export const restricted = false;
 export const serverOnly = true;
+export const botChannelOnly = false;
 export const hidden = false;
 
 // global references

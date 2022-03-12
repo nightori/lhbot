@@ -5,6 +5,7 @@ export const description = 'Определить дату создания об�
 export const args = ['[discord entity]'];
 export const restricted = false;
 export const serverOnly = false;
+export const botChannelOnly = false;
 export const hidden = false;
 
 export function execute(msg) {

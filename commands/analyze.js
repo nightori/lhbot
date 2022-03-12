@@ -3,6 +3,7 @@ export const description = 'Вывести информацию о сообще�
 export const args = null;
 export const restricted = true;
 export const serverOnly = false;
+export const botChannelOnly = false;
 export const hidden = true;
 
 // global references

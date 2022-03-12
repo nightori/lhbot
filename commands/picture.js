@@ -5,6 +5,7 @@ export const description = 'Найти и показать картинку по
 export const args = null;
 export const restricted = false;
 export const serverOnly = false;
+export const botChannelOnly = true;
 export const hidden = false;
 
 // global references

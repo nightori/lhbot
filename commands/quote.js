@@ -6,6 +6,7 @@ export const description = 'Получить случайную цитату и�
 export const args = null;
 export const restricted = false;
 export const serverOnly = false;
+export const botChannelOnly = false;
 export const hidden = false;
 
 // global references

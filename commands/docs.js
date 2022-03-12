@@ -6,6 +6,7 @@ export const description = 'Вывести ссылки на документа�
 export const args = null;
 export const restricted = false;
 export const serverOnly = false;
+export const botChannelOnly = false;
 export const hidden = true;
 
 export function execute(msg) {

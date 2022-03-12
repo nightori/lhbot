@@ -6,6 +6,7 @@ export const description = 'Найти в словаре заданное сло
 export const args = null;
 export const restricted = false;
 export const serverOnly = false;
+export const botChannelOnly = true;
 export const hidden = false;
 
 export function execute(msg) {

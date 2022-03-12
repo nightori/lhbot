@@ -3,6 +3,7 @@ export const description = 'Изменить ник пользователя';
 export const args = ['[member]', '[new nickname]'];
 export const restricted = true;
 export const serverOnly = true;
+export const botChannelOnly = false;
 export const hidden = true;
 
 export function execute(msg) {

@@ -3,6 +3,7 @@ export const description = 'Перезапустить что-нибудь';
 export const args = null;
 export const restricted = true;
 export const serverOnly = false;
+export const botChannelOnly = false;
 export const hidden = true;
 
 export function execute(msg) {

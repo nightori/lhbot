@@ -8,6 +8,7 @@ export const description = 'Получить все эмодзи сервера'
 export const args = null;
 export const restricted = false;
 export const serverOnly = true;
+export const botChannelOnly = true;
 export const hidden = true;
 
 export function execute(msg) {

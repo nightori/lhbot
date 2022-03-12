@@ -59,6 +59,11 @@ function check(command, message) {
 		return (message.channel.type == 'DM') ? 'Пошёл нахуй!' : '<:poshelnahui:456438347259445248>';
 	}
 
+	// if a bot-channel-only command is used anywhere else
+	if (command.botChannelOnly && message.channelId != cfg.channels.bot && message.channel.type != 'DM') {
+		return `Данную команду можно использовать только в <#${cfg.channels.bot}>`;
+	}
+
 	// if a server-only command is used in DM
 	if (command.serverOnly && message.channel.type == 'DM') {
 		return 'Данную команду нельзя использовать в личных сообщениях.';

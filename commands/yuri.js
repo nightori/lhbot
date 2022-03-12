@@ -6,6 +6,7 @@ export const description = 'Показать случайную юри-карт�
 export const args = null;
 export const restricted = false;
 export const serverOnly = false;
+export const botChannelOnly = false;
 export const hidden = false;
 
 export function execute(msg) {
