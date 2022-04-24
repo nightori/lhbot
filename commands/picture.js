@@ -1,6 +1,6 @@
 import gis from 'g-i-s';
 
-export const names = ['picture', 'pic'];
+export const names = ['picture', 'pic', 'пик'];
 export const description = 'Найти и показать картинку по запросу';
 export const args = null;
 export const restricted = false;
