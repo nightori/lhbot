@@ -18,10 +18,20 @@ export function execute(msg) {
 	message = msg;
 	title = msg.argsline;
 
-	vndb.vnSearch(title, vnCallback, message.errorHandler);
+	// check if it's a link or id
+	const id = extractId(msg.argsline);
+    if (id) {
+		// remove the embeds and search by id
+        msg.suppressEmbeds();
+		vndb.getVnInfoFull(id, vnCallback, message.errorHandler);
+    }
+	else {
+		// search by title
+		vndb.vnSearch(title, vnCallback, message.errorHandler);
+	}
 }
 
-// callback for vnSearch()
+// callback for a VN query
 function vnCallback(response) {
 	foundVN = null;
 
@@ -36,7 +46,7 @@ function vnCallback(response) {
 
 	// if there's no VNs, well, nothing we can do
 	else if (vns.length == 0) {
-		message.channel.send('Новелл с похожим названием не найдено.');
+		message.channel.send('Таких новелл не найдено.');
 	}
 
 	// if there's more than one VN
@@ -115,4 +125,17 @@ function printInfo() {
 
 	// send the vn info
 	message.channel.send({ embeds: [embed] });
+}
+
+function extractId(text) {
+	// if it's a VNDB link
+    if (/(https?:\/\/)?vndb\.org\/v\d+\/?/.test(text)) {
+        return text.replace(/[^\d]/g, '');
+    }
+	// if it's just an id
+	else if (/^\d+$/.test(text)) {
+		return text;
+	}
+	// if it's neither
+	else return null;
 }

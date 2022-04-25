@@ -16,6 +16,8 @@ export function destroy() {
 	vndb.destroy();
 }
 
+////// VNDB INTERACTION //////
+
 export function vnSearch(title, onSuccess, onError) {
 	vndb
 		.query(`get vn basic,details,staff (search ~ "${title}") {"sort":"popularity", "reverse":true}`)
@@ -47,7 +49,14 @@ export function getCharInfo(name, onSuccess, onError) {
 
 export function getVnInfo(ids, onSuccess, onError) {
 	vndb
-		.query(`get vn basic (id = [${ids}]) {"sort":"id", "results":25}`)
+		.query(`get vn basic (id = [${ids}]) {"sort":"popularity", "reverse":true, "results":25}`)
+		.then(onSuccess)
+		.catch(onError);
+}
+
+export function getVnInfoFull(ids, onSuccess, onError) {
+	vndb
+		.query(`get vn basic,details,staff (id = [${ids}]) {"sort":"popularity", "reverse":true, "results":25}`)
 		.then(onSuccess)
 		.catch(onError);
 }
@@ -72,6 +81,8 @@ export function getQuotes(vnId, onSuccess, onError) {
 		.then(onSuccess)
 		.catch(onError);
 }
+
+////// HELPER FUNCTIONS //////
 
 export function formatDescription(description) {
 	if (!description) return null;
