@@ -1,7 +1,7 @@
 import { MessageAttachment } from 'discord.js';
 import request from 'request';
 
-export const names = ['gif'];
+export const names = ['gif', 'гиф', 'гифка'];
 export const description = 'Сконвертировать картинку в gif';
 export const args = null;
 export const restricted = false;

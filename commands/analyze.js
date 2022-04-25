@@ -1,4 +1,4 @@
-export const names = ['analyze'];
+export const names = ['analyze', 'анализ'];
 export const description = 'Вывести информацию о сообщении в консоль';
 export const args = null;
 export const restricted = true;

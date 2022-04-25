@@ -1,4 +1,4 @@
-export const names = ['allo'];
+export const names = ['allo', 'алло'];
 export const description = 'Проверить, жив бот или нет';
 export const args = null;
 export const restricted = false;

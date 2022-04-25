@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import cfg from './../config.js';
 
-export const names = ['help'];
+export const names = ['help', 'хелп', 'справка', 'помощь'];
 export const description = 'Вывести список всех команд';
 export const args = null;
 export const restricted = false;

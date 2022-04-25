@@ -3,7 +3,7 @@ import request from 'request';
 import ZipStream from 'zip-stream';
 import { WritableStreamBuffer } from 'stream-buffers';
 
-export const names = ['emojis'];
+export const names = ['emojis', 'эмодзи', 'эмошки'];
 export const description = 'Получить все эмодзи сервера';
 export const args = null;
 export const restricted = false;

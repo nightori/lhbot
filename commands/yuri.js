@@ -1,7 +1,7 @@
 import { MessageAttachment } from 'discord.js';
 import request from 'request';
 
-export const names = ['yuri'];
+export const names = ['yuri', 'юри'];
 export const description = 'Показать случайную юри-картинку';
 export const args = null;
 export const restricted = false;

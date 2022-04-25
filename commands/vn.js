@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import cfg from './../config.js';
 
-export const names = ['vn'];
+export const names = ['vn', 'вн'];
 export const description = 'Получить информацию о ВН по названию';
 export const args = ['[title]'];
 export const restricted = false;

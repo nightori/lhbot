@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
-export const names = ['dd', 'diff'];
+export const names = ['dd', 'diff', 'разница'];
 export const description = 'Посчитать разницу между двумя датами';
 export const args = ['[date 1]', '[date 2]'];
 export const restricted = false;

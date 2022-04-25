@@ -2,7 +2,7 @@ import { MessageEmbed } from 'discord.js';
 import cfg from './../config.js';
 import fancy from './../static/fancyText.js';
 
-export const names = ['text', 'style'];
+export const names = ['text', 'style', 'текст'];
 export const description = 'Вывести заданный текст в разных стилях';
 export const args = null;
 export const restricted = false;

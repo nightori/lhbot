@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import cfg from './../config.js';
 
-export const names = ['search'];
+export const names = ['search', 'поиск'];
 export const description = 'Найти картинку в поисковых системах';
 export const args = null;
 export const restricted = false;

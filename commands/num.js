@@ -1,7 +1,7 @@
 import { MessageAttachment } from 'discord.js';
 import sharp from 'sharp';
 
-export const names = ['num', 'number'];
+export const names = ['num', 'number', 'число'];
 export const description = 'Сделать аниме-картинку с числом';
 export const args = ['[number]'];
 export const restricted = false;

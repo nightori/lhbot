@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import cfg from './../config.js';
 
-export const names = ['rr', 'roulette'];
+export const names = ['rr', 'roulette', 'рр'];
 export const description = 'Сыграть в русскую рулетку';
 export const args = null;
 export const restricted = false;

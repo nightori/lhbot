@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import dayjs from 'dayjs';
 
-export const names = ['char', 'character'];
+export const names = ['char', 'character', 'чар', 'персонаж', 'перс'];
 export const description = 'Получить информацию о персонаже ВН по имени';
 export const args = ['[name]'];
 export const restricted = false;

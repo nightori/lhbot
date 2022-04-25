@@ -1,4 +1,4 @@
-export const names = ['zv', 'vz'];
+export const names = ['zv', 'vz', 'зв', 'вз'];
 export const description = 'Патриотично zаменяет букvы';
 export const args = null;
 export const restricted = false;
