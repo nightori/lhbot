@@ -46,6 +46,11 @@ export function addVn(vn, callback) {
 	request({url: apiURL, method: "POST", body: vn, json: true}, callback);
 }
 
+export function deleteVn(tag, callback) {
+	const apiURL = cfg.vnr.tagApiURL + '/delete';
+	request({url: apiURL, method: "POST", body: tag}, callback);
+}
+
 // get the destination channel
 function getChannel(testMode) {
 	const channelId = testMode ? cfg.channels.bot : cfg.channels.vnr;
