@@ -88,7 +88,10 @@ export function formatDescription(description) {
 	if (!description) return null;
 
 	// full description with garbage removed
-	const descFull = description.replace(/\[.*?\]/g, '').trim();
+	const descFull = description
+		.replace(/\[\/?url.*?\]/g, '')
+		.replace(/\[.*?\]/g, '')
+		.trim();
 
 	// second check for emptiness
 	if (!descFull) return null;
