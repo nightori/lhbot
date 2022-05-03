@@ -6,7 +6,7 @@ export const description = 'Сыграть в русскую рулетку';
 export const args = null;
 export const restricted = false;
 export const serverOnly = true;
-export const botChannelOnly = false;
+export const botChannelOnly = true;
 export const hidden = false;
 
 // global references
