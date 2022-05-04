@@ -92,6 +92,29 @@ export function getRefMessageAndCall(msg, callback) {
 	}
 }
 
+export function getMessageByLinkAndCall(link, msg, callback) {
+	// get the server id, channel id, message id
+	const ids = link
+		.replace(/https:\/\/discord.com\/channels\//g, '')
+		.split('/');
+
+	// validate the input
+	if (ids.length == 3) {
+		// get the server, the channel, the message...
+		msg.client.guilds.fetch(ids[0])
+			.then(guild => {
+				guild.channels.fetch(ids[1])
+					.then(channel => {
+						channel.messages.fetch(ids[2])
+							.then(callback)
+							.catch(msg.errorHandler);
+					})
+					.catch(msg.errorHandler);
+			})
+			.catch(msg.errorHandler);
+	}
+}
+
 export function getRandomInt(min, max) {
 	min = Math.ceil(min);
 	max = Math.floor(max);
