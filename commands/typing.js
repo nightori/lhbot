@@ -4,7 +4,7 @@ export const args = ['channel'];
 export const restricted = false;
 export const serverOnly = false;
 export const botChannelOnly = true;
-export const hidden = false;
+export const hidden = true;
 
 export function execute(msg) {
     // get the module and channel id
