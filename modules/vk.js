@@ -62,7 +62,9 @@ export function getRandomPost(owner, offsetLimit, callback) {
 	};
 
 	// pass the result to the provided callback function
-	vkApi.wallGet(params).then(r => callback(r['items'][0]));
+	vkApi.wallGet(params)
+		.then(r => callback(r['items'][0]))
+		.catch(console.error);
 }
 
 ////// VNR INTERACTION //////
