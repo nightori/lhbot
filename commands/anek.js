@@ -45,7 +45,7 @@ function callback(result) {
 	}
 	// if it's not, try again up to N times
 	else if (tries < cfg.anek.maxTries) {
-		sendRequest();
+		setTimeout(sendRequest, cfg.anek.retryDelay);
 		tries++;
 	}
 	// we didn't manage to find an anek in N tries
