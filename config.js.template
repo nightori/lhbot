@@ -1,55 +1,56 @@
-This is an empty config file template.
+// This is a template for a config file.
+// It's just real config without auth tokens.
 
 export default
 {
 	"prefix": "!",
-	"creator": "",
-	"embedColor": "#",
+	"creator": "302478934690365441",
+	"embedColor": "#34AA74",
 	"channels": {
-		"general": "",
-		"vn": "",
-		"bot": "",
-		"log": "",
-		"media": "",
-		"info": "",
-		"vnr": ""
+		"general": "370690359992516620",
+		"vn": "370695340073943051",
+		"bot": "452481307235319809",
+		"log": "522691957731098624",
+		"media": "495156611543728138",
+		"info": "454968307997474823",
+		"vnr": "904647240394608641"
 	},
 	"roles": {
-		"mod": "",
-		"mute": ""
+		"mod": "380765635128328193",
+		"mute": "489765939022266368"
 	},
 	"status": {
-		"games": [""],
-		"interval": 
+		"games": ["Root Double","Little Busters!","Higurashi no Naku Koro ni","euphoria","Teacher in Training","Rewrite","Tokyo Dark","Steins;Gate","G-senjou no Maou","Swan Song","Chaos;Child","Fatal Twelve","Clannad","Ace Attorney","Umineko no Naku Koro ni","Higanbana no Saku Yoru ni","Steins;Gate 0","Okujou no Yurirei-san","VA-11 Hall-A","Бесконечное лето","Katawa Shoujo","Saya no Uta","Ever17","Maggot Baits","fault","planetarian","Subarashiki Hibi","CROSS†CHANNEL"],
+		"interval": 900000
 	},
-	"wfWords" : [""],
-	"wfReactions": [""],
-	"autoban": [""],
-	"threadUnarchiverEnabled": ,
+	"wfWords" : ["аестетик", "аэстетик", "сенпа", "дискас", "в украине", "в украину", "спешали", "экшуал", "экшел", "личерли", "чи шо"],
+	"wfReactions": ["disgrace", "dishon0r", "scorn", "shame"],
+	"autoban": ["h0nde"],
+	"threadUnarchiverEnabled": false,
 	"vnr": {
-		"enabled": ,
-		"debug": ,
-		"id": ,
-		"idSandbox": ,
-		"name": "",
-		"icon": "",
-		"lengthLimit": ,
-		"ignored": [""],
-		"tagApiURL": "",
-		"tagManager": "",
-		"reconnectInterval": 
+		"enabled": true,
+		"debug": false,
+		"id": 149082525,
+		"idSandbox": 90885700,
+		"name": "Visual Novel Reminiscence",
+		"icon": "https://sun4-2.userapi.com/c845124/v845124135/103200/F4P8VuUhVpY.jpg",
+		"lengthLimit": 300,
+		"ignored": ["#screenshot", "#video", "#music", "#memes"],
+		"tagApiURL": "http://localhost:7070/api",
+		"tagManager": "411546750583701514",
+		"reconnectInterval": 3600000
 	},
 	"anek": {
-		"ownerId": "",
-		"maxTries": ,
-		"lengthLimit": ,
-		"offsetLimit": ,
-		"retryDelay": 
+		"ownerId": "-92876084",
+		"maxTries": 10,
+		"lengthLimit": 500,
+		"offsetLimit": 20000,
+		"retryDelay": 100
 	},
 	"tokens": {
-		"discord": "",
-		"vk": "",
-		"vkVNR": "",
-		"vkSandbox": ""
+		"discord": "*discord bot token*",
+		"vk": "*general VK API interaction token*",
+		"vkVNR": "*VNR long polling token*",
+		"vkSandbox": "*VNR sandbox long polling token*"
 	}
 }
