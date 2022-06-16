@@ -23,7 +23,7 @@ export default
 		"games": ["Root Double","Little Busters!","Higurashi no Naku Koro ni","euphoria","Teacher in Training","Rewrite","Tokyo Dark","Steins;Gate","G-senjou no Maou","Swan Song","Chaos;Child","Fatal Twelve","Clannad","Ace Attorney","Umineko no Naku Koro ni","Higanbana no Saku Yoru ni","Steins;Gate 0","Okujou no Yurirei-san","VA-11 Hall-A","Бесконечное лето","Katawa Shoujo","Saya no Uta","Ever17","Maggot Baits","fault","planetarian","Subarashiki Hibi","CROSS†CHANNEL"],
 		"interval": 900000
 	},
-	"wfWords" : ["аестетик", "аэстетик", "сенпа", "дискас", "в украине", "в украину", "спешали", "экшуал", "экшел", "личерли", "чи шо"],
+	"wfWords" : ["аестетик", "аэстетик", "сенпа", "дискас", "в украине", "в украину", "спешали", "экшуал", "экшел", "личерли", "чи шо", "что-бы"],
 	"wfReactions": ["disgrace", "dishon0r", "scorn", "shame"],
 	"autoban": ["h0nde"],
 	"threadUnarchiverEnabled": false,
