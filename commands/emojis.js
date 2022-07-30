@@ -1,4 +1,5 @@
 import { MessageAttachment } from 'discord.js';
+import dayjs from 'dayjs';
 import request from 'request';
 import ZipStream from 'zip-stream';
 import { WritableStreamBuffer } from 'stream-buffers';
@@ -41,7 +42,8 @@ export function execute(msg) {
 			if (emojis.length == 0) {
 				// we're done, send the buffer
 				zip.finalize();
-				const file = new MessageAttachment(streamBuffer.getContents(), 'emojis.zip');
+				const filename = `emojis_${dayjs().format('DD.MM.YYYY')}.zip`;
+				const file = new MessageAttachment(streamBuffer.getContents(), filename);
 				msg.channel.send({ content: 'Готово!', files: [file] });
 			}
 			else addNextFile();
