@@ -144,16 +144,16 @@ export function getHashtags(text) {
 }
 
 export function getDeclension(number, ending1, ending2, ending3) {
-	const lastDigit = parseInt(number.toString().split('').pop());
+	const lastDigit = number % 10;
 
-	// 11 to 14 is a special case
 	if (number >= 11 && number <= 14)
 		return ending3;
 
-	// 1 — first ending
 	if (lastDigit == 1)
 		return ending1;
 
-	// 2 to 4 — second ending, otherwise — third ending
-	return (lastDigit >= 2 && lastDigit <= 4) ? ending2 : ending3;
+	if (lastDigit >= 2 && lastDigit <= 4)
+		return ending2;
+
+	return ending3;
 }
