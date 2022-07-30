@@ -13,6 +13,15 @@ export function handler(message) {
 
 // this can happen when a message is edited too
 export function handleRepeatable(message) {
+	// check if the message is just a bot mention
+	checkBotMention(message);
+
+	// continue with command execution
+	executeCommand(message);
+}
+
+// try to parse and execute a command
+function executeCommand(message) {
 	// replace the old prefix
 	message.content = message.content.replace(/^\$/, cfg.prefix);
 
@@ -115,4 +124,15 @@ function wordfilter(message) {
 			return;
 		}
 	});
+}
+
+// react to bot mentioning
+function checkBotMention(message) {
+	const mention = `<@${message.client.user.id}>`;
+
+	// if the message is a bot mention (and nothing else)
+	if (message.content == mention) {
+		const pingCommand = message.client.commands.get('allo');
+		pingCommand.execute(message);
+	}
 }
