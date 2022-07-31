@@ -9,9 +9,8 @@ export const hidden = false;
 export function execute(msg) {
 	const dict = msg.client.modules.get('dictionary');
 
-	// get a random word and capitalize the first letter
-	let word = dict.getRandomWord();
-	word = word.charAt(0).toUpperCase() + word.slice(1);
+	// get a random word and capitalize it
+	let word = dict.getRandomWord().capitalize();
 
 	// prepare and send the message
 	const desc = msg.argsline;

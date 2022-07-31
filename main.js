@@ -6,6 +6,8 @@ import { fileURLToPath } from 'url';
 import onDeath from 'death';
 import cfg from './config.js';
 
+await import('./extensions.js');
+
 const timeStart = performance.now();
 
 // initialize the client with intents
