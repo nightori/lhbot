@@ -52,7 +52,7 @@ function getVowelIndex(s) {
 }
 
 function restoreCase(before, after) {
-    if (before == before.toUpperCase())
+    if (before.length > 1 && before == before.toUpperCase())
         return after.toUpperCase();
 
     if (before.isCapitalized())
